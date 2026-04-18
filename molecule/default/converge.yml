@@ -1,0 +1,33 @@
+---
+- name: Converge
+  hosts: all
+  #become: true
+
+  vars:
+    is_debug: true
+    frp:
+      install_type: client
+      client:
+        server:
+          url: frp.example.kz
+          port: 7000
+        tls:
+          enabled: true
+          certificate: "client.crt"
+          privkey: "client.key"
+          cacrt: "ca.crt"
+        proxies:
+          - name: my-homeassistant-tcp
+            type: tcp
+            localIP: 192.168.1.2
+            localPort: 8123
+            remotePort: 8123
+        visitors: []
+
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=true cache_valid_time=300
+      when: ansible_facts.os_family == 'Debian'
+
+  roles:
+    - role: kz.frp
