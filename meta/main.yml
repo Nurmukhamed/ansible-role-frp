@@ -2,23 +2,23 @@ dependencies: []
 
 galaxy_info:
   role_name: frp
+  namespace: kz
   author: Nurmukhamed Artykaly
   description: A simple role to setup and configure frp.
   company: Nurmukhamed Artykaly
   issue_tracker_url: https://github.com/Nurmukhamed/ansible-role-frp/issues
   license: "license GPL-3-0-only"
-  min_ansible_version: 2.10
+  min_ansible_version: '2.10'
   platforms:
     - name: Fedora
       versions:
-      - all
+        - all
     - name: Debian
       versions:
-      - all
+        - all
     - name: Ubuntu
       versions:
-      - all
+        - all
   galaxy_tags:
     - system
-    - network 
-
+    - network

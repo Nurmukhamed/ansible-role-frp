@@ -25,5 +25,3 @@
     - "{{ sbindir }}"
     - "{{ logdir }}"
     - "{{ tlsdir }}"
-
-

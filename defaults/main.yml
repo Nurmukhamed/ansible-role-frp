@@ -31,7 +31,7 @@ frp_common:
 
 frp:
   install_type: client
-# install_type: server  
+# install_type: server
   server:
     port: 7000
     tls:
@@ -63,4 +63,3 @@ frp:
 #       bindAddr: "127.0.0.1"
 #       bindPort: 8554
 #       keepTunnelOpen: false
-

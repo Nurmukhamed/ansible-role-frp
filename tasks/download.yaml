@@ -60,4 +60,3 @@
   ansible.builtin.file:
     path: "{{ _temp_folder }}"
     state: absent
-
