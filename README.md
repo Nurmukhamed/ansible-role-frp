@@ -23,9 +23,31 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
+    - name: Install frp.
+      hosts: servers
+      gather_facts: true
+
+      vars:
+        frp:
+          install_type: client
+          client:
+            server:
+              url: frp.example.kz
+              port: 7000
+            tls:
+              enabled: true
+              certificate: "client.crt"
+              privkey: "client.key"
+              cacrt: "ca.crt"
+            proxies:
+              - name: my-homeassistant-tcp
+                type: tcp
+                localIP: 192.168.1.2
+                localPort: 8123
+                remotePort: 8123
+            visitors: []
       roles:
-         - { role: username.rolename, x: 42 }
+         - frp
 
 License
 -------

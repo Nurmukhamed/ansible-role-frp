@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-User={{ frp['user'] }}
-Group={{ frp['group'] }}
+User={{ frp_common['user'] }}
+Group={{ frp_common['group'] }}
 Restart=on-failure
 RestartSec=5s
 ExecStart={{ sbindir }}/frps -c {{ etcdir }}/frps.toml

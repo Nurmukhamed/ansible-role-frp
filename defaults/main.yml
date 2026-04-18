@@ -10,17 +10,30 @@ sbindir: "/usr/sbin"
 logdir: "/var/log/frp"
 tlsdir: "/etc/frp/tls"
 
-frp:
+frp_common:
   version: "0.68.1"
   url_template: "https://github.com/fatedier/frp/releases/download/%s/frp_%s_linux_%s.tar.gz"
   tmp_template: "frp_%s_linux_%s"
   user: frp
   group: frp
+  server:
+    logfile: "frps.log"
+    tls:
+      certificate: "server.crt"
+      privkey: "server.key"
+      cacrt: "ca.crt"
+  client:
+    logfile: "frpc.log"
+    tls:
+      certificate: "server.crt"
+      privkey: "server.key"
+      cacrt: "ca.crt"
+
+frp:
   install_type: client
 # install_type: server  
   server:
     port: 7000
-    logfile: "frps.log"
     tls:
       enabled: true
       certificate: "server.crt"
@@ -39,7 +52,7 @@ frp:
     proxies: []
 #     - name: my-homeassistant-tcp
 #       type: tcp
-#       localIP: 2.2.2.2
+#       localIP: 192.168.1.2
 #       localPort: 8123
 #       remotePort: 8123
     visitors: []

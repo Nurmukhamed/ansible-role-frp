@@ -9,12 +9,12 @@
 
 - name: Set version with v letter.
   ansible.builtin.set_fact:
-    _version: "v{{ frp['version'] }}"
+    _version: "v{{ frp_common['version'] }}"
 
 - name: Create download and tmp url.
   ansible.builtin.set_fact:
-    _download_url: "{{ frp['url_template'] | format(_version, frp['version'], _arch) }}"
-    _tmp_url: "{{ frp['tmp_template'] | format(_frp['version'], _arch) }}"
+    _download_url: "{{ frp_common['url_template'] | format(_version, frp_common['version'], _arch) }}"
+    _tmp_url: "{{ frp['tmp_template'] | format(_frp_common['version'], _arch) }}"
 
 - name: Debug download url.
   when: _is_debug
@@ -48,7 +48,7 @@
 - name: Copy frpc, frps to sbindir.
   ansible.builtin.copy:
     src: "{{ _temp_folder }}/{{ _tmp_url }}/ {{ item }}"
-    dest: "/usr/sbin/{{ item }}"
+    dest: "{{ sbindir }}/{{ item }}"
     owner: root
     group: root
     mode: '0755'

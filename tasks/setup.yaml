@@ -1,12 +1,12 @@
 - name: Ensure that group exists.
   ansible.builtin.group:
-    name: "{{ frp['group'] }}"
+    name: "{{ frp_common['group'] }}"
     state: present
 
 - name: Ensure that user exists.
   ansible.builtin.user:
-    name: "{{ frp['user'] }}"
-    group: "{{ frp['group'] }}"
+    name: "{{ frp_common['user'] }}"
+    group: "{{ frp_common['group'] }}"
     shell: /sbin/nologin
     create_home: true
     home: "{{ homedir }}"
@@ -17,8 +17,8 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    owner: "{{ frp['user'] }}"
-    group: "{{ frp['group'] }}"
+    owner: "{{ frp_common['user'] }}"
+    group: "{{ frp_common['group'] }}"
     mode: '0775'
   with_items:
     - "{{ etcdir }}"
@@ -26,27 +26,4 @@
     - "{{ logdir }}"
     - "{{ tlsdir }}"
 
-- name: Create systemd files.
-  block:
-    - name: Install frp client systemd unit.
-      ansible.builtin.template:
-        src: frpc.service.j2
-        dest: /etc/systemd/system/frpc.service
-        owner: root
-        group: root
-        mode: '0644'
-      notify:
-        - Start frpc service
-        - Restart frpc service
-
-    - name: Install frp service systemd unit.
-      ansible.builtin.template:
-        src: frps.service.j2
-        dest: /etc/systemd/system/frps.service
-        owner: root
-        group: root
-        mode: '0644'
-      notify:
-        - Start frps service
-        - Restart frps service
 

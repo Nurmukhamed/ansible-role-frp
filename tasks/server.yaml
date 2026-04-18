@@ -1,0 +1,21 @@
+- name: Install frp service systemd unit.
+  ansible.builtin.template:
+    src: frps.service.j2
+    dest: /etc/systemd/system/frps.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Start frps service
+    - Restart frps service
+
+- name: Create server config file from template.
+  ansible.builtin.template:
+    src: frps.toml.j2
+    dest: "{{ etcdir }}/{{ frp_common['server']['configfile'] }}"
+    owner: "{{ frp_common['user'] }}"
+    group: "{{ frp_common['group'] }}"
+    mode: '0640'
+  notify:
+    - Start frps service
+    - Restart frps service
