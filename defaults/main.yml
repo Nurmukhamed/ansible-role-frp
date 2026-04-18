@@ -17,12 +17,14 @@ frp_common:
   user: frp
   group: frp
   server:
+    configfile: "frps.toml"
     logfile: "frps.log"
     tls:
       certificate: "server.crt"
       privkey: "server.key"
       cacrt: "ca.crt"
   client:
+    configfile: "frpc.toml"
     logfile: "frpc.log"
     tls:
       certificate: "server.crt"

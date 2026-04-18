@@ -3,9 +3,9 @@ serverPort = {{ frp['client']['server']['port'] }}
 
 {% if frp['client']['tls']['enabled'] %}
 transport.tls.enable = {{ frp['client']['tls']['enabled'] }}
-transport.tls.certFile = "{{ frp_common['client']['tls']['certificate'] }}"
-transport.tls.keyFile = "{{ frp_common['client']['tls']['privkey'] }}"
-transport.tls.trustedCaFile = "{{ frp_common['client']['tls']['cacrt'] }}"
+transport.tls.certFile = "{{ tlsdir }}/{{ frp_common['client']['tls']['certificate'] }}"
+transport.tls.keyFile = "{{ tlsdir }}/{{ frp_common['client']['tls']['privkey'] }}"
+transport.tls.trustedCaFile = "{{ tlsdir }}/{{ frp_common['client']['tls']['cacrt'] }}"
 {% endif %}
 
 log.to = "{{ logdir }}/{{ frp_common['client']['logfile'] }}"

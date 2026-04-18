@@ -14,7 +14,7 @@
 - name: Create download and tmp url.
   ansible.builtin.set_fact:
     _download_url: "{{ frp_common['url_template'] | format(_version, frp_common['version'], _arch) }}"
-    _tmp_url: "{{ frp['tmp_template'] | format(_frp_common['version'], _arch) }}"
+    _tmp_url: "{{ frp_common['tmp_template'] | format(frp_common['version'], _arch) }}"
 
 - name: Debug download url.
   when: _is_debug
@@ -39,7 +39,7 @@
 - name: Download from github to temporary folder.
   ansible.builtin.unarchive:
     src: "{{ _download_url }}"
-    dest: "{{ _tmp_url }}"
+    dest: "{{ _temp_folder }}"
     owner: root
     group: root
     mode: '0755'
@@ -47,7 +47,7 @@
 
 - name: Copy frpc, frps to sbindir.
   ansible.builtin.copy:
-    src: "{{ _temp_folder }}/{{ _tmp_url }}/ {{ item }}"
+    src: "{{ _temp_folder }}/{{ _tmp_url }}/{{ item }}"
     dest: "{{ sbindir }}/{{ item }}"
     owner: root
     group: root
