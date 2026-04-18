@@ -28,6 +28,7 @@ Including an example of how to use your role (for instance, with variables passe
       gather_facts: true
 
       vars:
+        _is_debug: true
         frp:
           install_type: client
           client:

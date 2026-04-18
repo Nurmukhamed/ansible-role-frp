@@ -1,7 +1,7 @@
 ---
 # defaults file for ansible-role-frp
 
-_is_debug: true
+_is_debug: false
 
 # folders
 etcdir: "/etc/frp"
