@@ -9,6 +9,9 @@
   when: ansible_facts.os_family == 'Debian'
   ansible.builtin.include_tasks: Debian.yaml
 
+- name: Download frps, frpc binaries.
+  ansible.builtin.include_tasks: download.yaml
+
 - name: Setup steps.
   ansible.builtin.include_tasks: setup.yaml
 

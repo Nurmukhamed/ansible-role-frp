@@ -26,20 +26,6 @@
     - "{{ logdir }}"
     - "{{ tlsdir }}"
 
-- name: Download frp binary.
-  block:
-    - name: Create download url.
-      ansible.builtin.set_fact:
-        _download_url: "{{ frp['url_template'] | format(frp['version'], frp['version'], ansible_architecture) }}"
-
-    - name: Download from github.
-      ansible.builtin.unarchive:
-        src: "{{ _download_url }}"
-        dest: "{{ sbindir }}"
-        owner: root
-        group: root
-        mode: '0755'
-
 - name: Create systemd files.
   block:
     - name: Install frp client systemd unit.

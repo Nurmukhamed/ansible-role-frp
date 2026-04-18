@@ -1,0 +1,63 @@
+- name: Set arch variable 1/2.
+  ansible.builtin.set_fact:
+    _arch: "{{ ansible_architecture }}"
+
+- name: Set arch variable 2/2.
+  when: ansible_architecture == 'x86_64'
+  ansible.builtin.set_fact:
+    _arch: 'amd64'
+
+- name: Set version with v letter.
+  ansible.builtin.set_fact:
+    _version: "v{{ frp['version'] }}"
+
+- name: Create download and tmp url.
+  ansible.builtin.set_fact:
+    _download_url: "{{ frp['url_template'] | format(_version, frp['version'], _arch) }}"
+    _tmp_url: "{{ frp['tmp_template'] | format(_frp['version'], _arch) }}"
+
+- name: Debug download url.
+  when: _is_debug
+  ansible.builtin.debug:
+    msg: "{{ _download_url }}"
+
+- name: Debug tmp url.
+  when: _is_debug
+  ansible.builtin.debug:
+    msg: "{{ _tmp_url }}"
+
+- name: Create a temporary folder for download 1/2.
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: frp
+  register: _temp_folder
+
+- name: Create a temporary folder for download 2/2.
+  ansible.builtin.set_fact:
+    _temp_folder: "{{ _temp_folder['path'] }}"
+
+- name: Download from github to temporary folder.
+  ansible.builtin.unarchive:
+    src: "{{ _download_url }}"
+    dest: "{{ _tmp_url }}"
+    owner: root
+    group: root
+    mode: '0755'
+    remote_src: true
+
+- name: Copy frpc, frps to sbindir.
+  ansible.builtin.copy:
+    src: "{{ _temp_folder }}/{{ _tmp_url }}/ {{ item }}"
+    dest: "/usr/sbin/{{ item }}"
+    owner: root
+    group: root
+    mode: '0755'
+  with_items:
+    - frpc
+    - frps
+
+- name: Remove temporary folder.
+  ansible.builtin.file:
+    path: "{{ _temp_folder }}"
+    state: absent
+

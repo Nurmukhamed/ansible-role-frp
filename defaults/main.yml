@@ -1,9 +1,9 @@
 ---
 # defaults file for ansible-role-frp
 
-# Installing urls.
+_is_debug: true
 
-
+# folders
 etcdir: "/etc/frp"
 homedir: "/home/frp"
 sbindir: "/usr/sbin"
@@ -11,8 +11,9 @@ logdir: "/var/log/frp"
 tlsdir: "/etc/frp/tls"
 
 frp:
-  version: "v0.68.1"
+  version: "0.68.1"
   url_template: "https://github.com/fatedier/frp/releases/download/%s/frp_%s_linux_%s.tar.gz"
+  tmp_template: "frp_%s_linux_%s"
   user: frp
   group: frp
   install_type: client
