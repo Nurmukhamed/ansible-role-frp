@@ -1,2 +1,21 @@
 ---
 # tasks file for ansible-role-frp
+#
+- name: Run tasks related to Redhat.
+  when: ansible_facts.os_family == 'RedHat'
+  ansible.builtin.include_tasks: RedHat.yaml
+
+- name: Run tasks related to Debian.
+  when: ansible_facts.os_family == 'Debian'
+  ansible.builtin.include_tasks: Debian.yaml
+
+- name: Setup steps.
+  ansible.builtin.include_tasks: setup.yaml
+
+- name: Setup client.
+  when: frp['install_type'] == 'client'
+  ansible.builtin.include_tasks: client.yaml
+
+- name: Setup server.
+  when: frp['install_type'] == 'server'
+  ansible.builtin.include_tasks: server.yaml

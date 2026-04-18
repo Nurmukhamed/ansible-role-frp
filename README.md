@@ -1,7 +1,7 @@
-Role Name
+asterisk-role-frp
 =========
 
-A brief description of the role goes here.
+A simple role for installing [frp](https://github.com/fatedier/frp).
 
 Requirements
 ------------

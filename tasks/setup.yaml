@@ -1,0 +1,66 @@
+- name: Ensure that group exists.
+  ansible.builtin.group:
+    name: "{{ frp['group'] }}"
+    state: present
+
+- name: Ensure that user exists.
+  ansible.builtin.user:
+    name: "{{ frp['user'] }}"
+    group: "{{ frp['group'] }}"
+    shell: /sbin/nologin
+    create_home: true
+    home: "{{ homedir }}"
+    system: true
+    state: present
+
+- name: Ensure that folders are exists.
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ frp['user'] }}"
+    group: "{{ frp['group'] }}"
+    mode: '0775'
+  with_items:
+    - "{{ etcdir }}"
+    - "{{ sbindir }}"
+    - "{{ logdir }}"
+    - "{{ tlsdir }}"
+
+- name: Download frp binary.
+  block:
+    - name: Create download url.
+      ansible.builtin.set_fact:
+        _download_url: "{{ frp['url_template'] | format(frp['version'], frp['version'], ansible_architecture) }}"
+
+    - name: Download from github.
+      ansible.builtin.unarchive:
+        src: "{{ _download_url }}"
+        dest: "{{ sbindir }}"
+        owner: root
+        group: root
+        mode: '0755'
+
+- name: Create systemd files.
+  block:
+    - name: Install frp client systemd unit.
+      ansible.builtin.template:
+        src: frpc.service.j2
+        dest: /etc/systemd/system/frpc.service
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Start frpc service
+        - Restart frpc service
+
+    - name: Install frp service systemd unit.
+      ansible.builtin.template:
+        src: frps.service.j2
+        dest: /etc/systemd/system/frps.service
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Start frps service
+        - Restart frps service
+

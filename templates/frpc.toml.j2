@@ -1,0 +1,31 @@
+serverAddr = "{{ frp['client']['server']['url'] }}"
+serverPort = {{ frp['client']['server']['port'] }}
+
+{% if frp['client']['tls']['enabled'] %}
+transport.tls.enable = {{ frp['client']['tls']['enabled'] }}
+transport.tls.certFile = "{{ frp['client']['tls']['certificate'] }}"
+transport.tls.keyFile = "{{ frp['client']['tls']['privkey'] }}"
+transport.tls.trustedCaFile = "{{ frp['client']['tls']['cacrt'] }}"
+{% endif %}
+
+log.to = "{{ logdir }}/{{ frp['client']['logfile'] }}"
+
+{% for proxy in frp['client']['proxies'] %}
+[[proxies]]
+name = "{{ proxy['name'] }}"
+type = "{{ proxy['type'] }}"
+localIP = "{{ proxy['localIP'] }}"
+localPort = {{ proxy['localPort'] }}
+remotePort = {{ proxy['remotePort'] }}
+{% endfor %}
+
+{% for visitor in frp['client']['visitors'] %}
+[[visitors]]
+name = "{{ visitor['name'] }}"
+type = "{{ visitor['type'] }}"
+serverName = "{{ visitor['serverName'] }}"
+secretKey = "{{ visitor['secretKey'] }}"
+bindAddr = "{{ visitor['bindAddr'] }}"
+bindPort = {{ visitor['bindPort'] }}
+keepTunnelOpen = {{ visitor['keepTunnelOpen'] }}
+{% endfor %}

@@ -1,0 +1,15 @@
+[Unit]
+Description=Frp Server Service
+After=network.target
+
+[Service]
+Type=simple
+User={{ frp_user }}
+Group={{ frp_group }}
+Restart=on-failure
+RestartSec=5s
+ExecStart={{ sbindir }}/frps -c {{ etcdir }}/frps.toml
+LimitNOFILE=1048576
+
+[Install]
+WantedBy=multi-user.target

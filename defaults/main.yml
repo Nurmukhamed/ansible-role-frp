@@ -1,2 +1,52 @@
 ---
 # defaults file for ansible-role-frp
+
+# Installing urls.
+
+
+etcdir: "/etc/frp"
+homedir: "/home/frp"
+sbindir: "/usr/sbin"
+logdir: "/var/log/frp"
+tlsdir: "/etc/frp/tls"
+
+frp:
+  version: "v0.68.1"
+  url_template: "https://github.com/fatedier/frp/releases/download/%s/frp_%s_linux_%s.tar.gz"
+  user: frp
+  group: frp
+  install_type: client
+# install_type: server  
+  server:
+    port: 7000
+    logfile: "frps.log"
+    tls:
+      enabled: true
+      certificate: "server.crt"
+      privkey: "server.key"
+      cacrt: "ca.crt"
+  client:
+    server:
+      url: frp.example.kz
+      port: 7000
+    logfile: "frpc.log"
+    tls:
+      enabled: true
+      certificate: "server.crt"
+      privkey: "server.key"
+      cacrt: "ca.crt"
+    proxies: []
+#     - name: my-homeassistant-tcp
+#       type: tcp
+#       localIP: 2.2.2.2
+#       localPort: 8123
+#       remotePort: 8123
+    visitors: []
+#     - name: p2p-my-nvr-visitor
+#       type: xtcp
+#       serverName: p2p-my-nvr
+#       secretKey: mysecretkey
+#       bindAddr: "127.0.0.1"
+#       bindPort: 8554
+#       keepTunnelOpen: false
+
