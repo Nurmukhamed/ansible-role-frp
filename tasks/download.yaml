@@ -14,12 +14,12 @@
 
 - name: Create download and tmp url.
   ansible.builtin.set_fact:
-    _download_url: |
-       "{{ frp_common['url_template'] |
-           format(_version, frp_common['version'], _arch) }}"
-    _tmp_url: |
-       "{{ frp_common['tmp_template'] |
-           format(frp_common['version'], _arch) }}"
+    _download_url: >-
+       {{ frp_common['url_template'] |
+          format(_version, frp_common['version'], _arch) }}
+    _tmp_url: >-
+       {{ frp_common['tmp_template'] |
+          format(frp_common['version'], _arch) }}
 
 - name: Debug download url.
   when: _is_debug
@@ -57,6 +57,7 @@
     owner: root
     group: root
     mode: '0755'
+    remote_src: true
   with_items:
     - frpc
     - frps
