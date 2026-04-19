@@ -11,6 +11,11 @@ logdir: "/var/log/frp"
 tlsdir: "/etc/frp/tls"
 
 frp_common:
+  sha256sums:
+    - name: frp_0.68.1_linux_amd64.tar.gz
+      value: 4a4e88987d39561e1b3b3b23d0ede48a457eebf76a87231999957e870f5f02b6
+    - name: frp_0.68.1_linux_arm64.tar.gz
+      value: e7ad15b0cfe4cf0125df4217778b66cb4426179270967b59900ecb2362d8cd01
   version: "0.68.1"
   url_template: |
     https://github.com/fatedier/frp/releases/download/%s/frp_%s_linux_%s.tar.gz
@@ -24,6 +29,7 @@ frp_common:
       certificate: "server.crt"
       privkey: "server.key"
       cacrt: "ca.crt"
+    sha256sum: 10f1ae790f20edf5b036c65a9e828f3647caf8c527bd2a7d88ed3378f354ca2b
   client:
     configfile: "frpc.toml"
     logfile: "frpc.log"
@@ -31,6 +37,7 @@ frp_common:
       certificate: "server.crt"
       privkey: "server.key"
       cacrt: "ca.crt"
+    sha256sum: 1aa465a45bcd2df33fbf7d1af71b66dd288430026e3776b216ea5f260d7c4b68
 
 frp:
   install_type: client  # or server
@@ -52,16 +59,16 @@ frp:
       privkey: "server.key"
       cacrt: "ca.crt"
     proxies: []
-#     - name: my-homeassistant-tcp
-#       type: tcp
-#       localIP: 192.168.1.2
-#       localPort: 8123
-#       remotePort: 8123
+    # - name: my-homeassistant-tcp
+    #   type: tcp
+    #   localIP: 192.168.1.2
+    #   localPort: 8123
+    #   remotePort: 8123
     visitors: []
-#     - name: p2p-my-nvr-visitor
-#       type: xtcp
-#       serverName: p2p-my-nvr
-#       secretKey: mysecretkey
-#       bindAddr: "127.0.0.1"
-#       bindPort: 8554
-#       keepTunnelOpen: false
+    # - name: p2p-my-nvr-visitor
+    #   type: xtcp
+    #   serverName: p2p-my-nvr
+    #   secretKey: mysecretkey
+    #   bindAddr: "127.0.0.1"
+    #   bindPort: 8554
+    #   keepTunnelOpen: false

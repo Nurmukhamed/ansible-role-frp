@@ -1,0 +1,42 @@
+---
+- name: Set _is_download to false.
+  ansible.builtin.set_fact:
+    _is_download: false
+
+- name: Stat file frpc.
+  ansible.builtin.stat:
+    path: "{{ sbindir }}/frpc"
+    checksum_algorithm: sha256
+    get_checksum: true
+  register: _stat
+
+- name: Check if frpc exists.
+  when: not _stat.stat.exists
+  ansible.builtin.set_fact:
+    _is_download: true
+
+- name: Check sha256sum of frpc.
+  when:
+    - _stat.stat.exists
+    - _stat.stat.checksum != frp_common['client']['sha256sum']
+  ansible.builtin.set_fact:
+    _is_download: true
+
+- name: Stat file frps.
+  ansible.builtin.stat:
+    path: "{{ sbindir }}/frps"
+    checksum_algorithm: sha256
+    get_checksum: true
+  register: _stat
+
+- name: Check if frps exists.
+  when: _stat.stat.exists
+  ansible.builtin.set_fact:
+    _is_download: true
+
+- name: Check sha256sum of frps.
+  when:
+    - _stat.stat.exists
+    - _stat.stat.checksum != frp_common['server']['sha256sum']
+  ansible.builtin.set_fact:
+    _is_download: true
