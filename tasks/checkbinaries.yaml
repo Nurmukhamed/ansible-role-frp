@@ -30,7 +30,7 @@
   register: _stat
 
 - name: Check if frps exists.
-  when: _stat.stat.exists
+  when: not _stat.stat.exists
   ansible.builtin.set_fact:
     _is_download: true
 
