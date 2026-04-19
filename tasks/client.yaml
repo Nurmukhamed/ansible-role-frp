@@ -1,3 +1,4 @@
+---
 - name: Install frp client systemd unit.
   ansible.builtin.template:
     src: frpc.service.j2

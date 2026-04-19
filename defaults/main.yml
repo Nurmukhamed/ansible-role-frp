@@ -12,7 +12,8 @@ tlsdir: "/etc/frp/tls"
 
 frp_common:
   version: "0.68.1"
-  url_template: "https://github.com/fatedier/frp/releases/download/%s/frp_%s_linux_%s.tar.gz"
+  url_template: |
+    https://github.com/fatedier/frp/releases/download/%s/frp_%s_linux_%s.tar.gz
   tmp_template: "frp_%s_linux_%s"
   user: frp
   group: frp
@@ -32,8 +33,7 @@ frp_common:
       cacrt: "ca.crt"
 
 frp:
-  install_type: client
-# install_type: server
+  install_type: client  # or server
   server:
     port: 7000
     tls:

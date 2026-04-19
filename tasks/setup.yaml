@@ -1,3 +1,4 @@
+---
 - name: Ensure that group exists.
   ansible.builtin.group:
     name: "{{ frp_common['group'] }}"

@@ -1,3 +1,4 @@
+---
 - name: Debug no-op message.
   when: _is_debug
   ansible.builtin.debug:
