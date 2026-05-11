@@ -1,12 +1,17 @@
 ---
-- name: Set arch variable 1/2.
+- name: Set arch variable 1/3.
   ansible.builtin.set_fact:
-    _arch: "{{ ansible_architecture }}"
+    _arch: "{{ ansible_facts['architecture'] }}"
 
-- name: Set arch variable 2/2.
-  when: ansible_architecture == 'x86_64'
+- name: Set arch variable 2/3.
+  when: ansible_facts['architecture'] == 'x86_64'
   ansible.builtin.set_fact:
     _arch: 'amd64'
+
+- name: Set arch variable 2/3.
+  when: ansible_facts['architecture'] == 'aarch64'
+  ansible.builtin.set_fact:
+    _arch: 'arm64'
 
 - name: Set version with v letter.
   ansible.builtin.set_fact:

@@ -55,8 +55,8 @@ frp:
     logfile: "frpc.log"
     tls:
       enabled: true
-      certificate: "server.crt"
-      privkey: "server.key"
+      certificate: "client.crt"
+      privkey: "client.key"
       cacrt: "ca.crt"
     proxies: []
     # - name: my-homeassistant-tcp
