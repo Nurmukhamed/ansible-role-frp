@@ -19,6 +19,9 @@ localPort = {{ proxy['localPort'] }}
 {%   if proxy['remotePort'] is defined %}
 remotePort = {{ proxy['remotePort'] }}
 {%   endif %}
+{%   if proxy['secretKey'] is defined %}
+secretKey = "{{ proxy['secretKey'] }}"
+{%   endif %}
 {% endfor %}
 
 {% for visitor in frp['client']['visitors'] %}
