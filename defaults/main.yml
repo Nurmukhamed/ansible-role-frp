@@ -34,8 +34,8 @@ frp_common:
     configfile: "frpc.toml"
     logfile: "frpc.log"
     tls:
-      certificate: "server.crt"
-      privkey: "server.key"
+      certificate: "client.crt"
+      privkey: "client.key"
       cacrt: "ca.crt"
     sha256sum: 1aa465a45bcd2df33fbf7d1af71b66dd288430026e3776b216ea5f260d7c4b68
 
