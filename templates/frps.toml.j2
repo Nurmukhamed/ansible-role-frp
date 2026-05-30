@@ -1,6 +1,8 @@
 bindPort = {{ frp['server']['port'] }}
 log.to = "{{ logdir }}/{{ frp_common['server']['logfile'] }}"
-transport.tls.force = {{ frp['server']['tls']['enabled'] }}
+{% if frp['server']['tls']['enabled'] %}
+transport.tls.force = true
 transport.tls.certFile = "{{ tlsdir }}/{{ frp_common['server']['tls']['certificate']}}"
 transport.tls.keyFile = "{{ tlsdir }}/{{ frp_common['server']['tls']['privkey'] }}"
 transport.tls.trustedCaFile = "{{ tlsdir }}/{{ frp_common['server']['tls']['cacrt'] }}"
+{% endif %}

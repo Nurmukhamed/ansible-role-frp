@@ -47,13 +47,42 @@ Including an example of how to use your role (for instance, with variables passe
                 localPort: 8123
                 remotePort: 8123
             visitors: []
+        client_ca_content: "{{ lookup('ansible.builtin.env', 'FRP_CLIENT_CA_CONTENT' ) }}"
+        client_crt_content: "{{ lookup('ansible.builtin.env', 'FRP_CLIENT_CRT_CONTENT') }}"
+        client_key_content: "{{ lookup('ansible.builtin.env', 'FRP_CLIENT_KEY_CONTENT') }}"
+
+      tasks:
+        - name: Copy client ca content to remote file.
+          ansible.builtin.copy:
+            content: "{{ client_ca_content }}"
+            dest: "{{ tlsdir }}/{{ frp['client']['tls']['cacrt'] }}"
+            owner: "{{ frp_common['user'] }}"
+            group: "{{ frp_common['group'] }}"
+            mode: 0644
+
+        - name: Copy client crt content to remote file.
+          ansible.builtin.copy:
+            content: "{{ client_crt_content }}"
+            dest: "{{ tlsdir }}/{{ frp['client']['tls']['certificate'] }}"
+            owner: "{{ frp_common['user'] }}"
+            group: "{{ frp_common['group'] }}"
+            mode: 0644
+
+        - name: Copy client key content to remote file.
+          ansible.builtin.copy:
+            content: "{{ client_key_content }}"
+            dest: "{{ tlsdir }}/{{ frp['client']['tls']['privkey'] }}"
+            owner: "{{ frp_common['user'] }}"
+            group: "{{ frp_common['group'] }}"
+            mode: 0644
+
       roles:
          - frp
 
 License
 -------
 
-BSD
+GPLv3
 
 Author Information
 ------------------
