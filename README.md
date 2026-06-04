@@ -58,7 +58,7 @@ Including an example of how to use your role (for instance, with variables passe
             dest: "{{ tlsdir }}/{{ frp['client']['tls']['cacrt'] }}"
             owner: "{{ frp_common['user'] }}"
             group: "{{ frp_common['group'] }}"
-            mode: 0644
+            mode: '0644'
 
         - name: Copy client crt content to remote file.
           ansible.builtin.copy:
@@ -66,7 +66,7 @@ Including an example of how to use your role (for instance, with variables passe
             dest: "{{ tlsdir }}/{{ frp['client']['tls']['certificate'] }}"
             owner: "{{ frp_common['user'] }}"
             group: "{{ frp_common['group'] }}"
-            mode: 0644
+            mode: '0644'
 
         - name: Copy client key content to remote file.
           ansible.builtin.copy:
@@ -74,7 +74,7 @@ Including an example of how to use your role (for instance, with variables passe
             dest: "{{ tlsdir }}/{{ frp['client']['tls']['privkey'] }}"
             owner: "{{ frp_common['user'] }}"
             group: "{{ frp_common['group'] }}"
-            mode: 0644
+            mode: '0600'
 
       roles:
          - frp
