@@ -8,6 +8,7 @@ User={{ frp_common['user'] }}
 Group={{ frp_common['group'] }}
 Restart=on-failure
 RestartSec=5s
+ExecStartPre={{ sbindir }}/frps verify -c {{ etcdir }}/frps.toml
 ExecStart={{ sbindir }}/frps -c {{ etcdir }}/frps.toml
 LimitNOFILE=1048576
 
