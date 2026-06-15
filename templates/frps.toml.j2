@@ -1,5 +1,9 @@
 bindPort = {{ frp['server']['port'] }}
+
 log.to = "{{ logdir }}/{{ frp_common['server']['logfile'] }}"
+log.level = {{ frp_common['log_level'] }}
+log.maxDays = {{ frp_common['log_maxDays'] }}
+
 {% if frp['server']['tls']['enabled'] %}
 transport.tls.force = true
 transport.tls.certFile = "{{ tlsdir }}/{{ frp_common['server']['tls']['certificate']}}"

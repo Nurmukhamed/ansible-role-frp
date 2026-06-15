@@ -9,6 +9,8 @@ transport.tls.trustedCaFile = "{{ tlsdir }}/{{ frp_common['client']['tls']['cacr
 {% endif %}
 
 log.to = "{{ logdir }}/{{ frp_common['client']['logfile'] }}"
+log.level = {{ frp_common['log_level'] }}
+log.maxDays = {{ frp_common['log_maxDays'] }}
 
 {% for proxy in frp['client']['proxies'] %}
 [[proxies]]

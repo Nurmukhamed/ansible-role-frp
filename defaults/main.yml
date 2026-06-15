@@ -22,6 +22,8 @@ frp_common:
   tmp_template: "frp_%s_linux_%s"
   user: frp
   group: frp
+  log_level: 'info'
+  log_maxDays: '7'
   server:
     configfile: "frps.toml"
     logfile: "frps.log"
